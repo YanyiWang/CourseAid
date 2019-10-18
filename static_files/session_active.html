@@ -1,0 +1,140 @@
+<!--
+  Allows teacher to show off their questions and gives students the chance to particpate in those
+  questions. Also shows the stats of the students who answered and participated.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>class_evaluation Page</title>
+
+ <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.0.1/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyC0afXrWzKDmxKFgnp4ltUxc7bG5p3gt8M",
+    authDomain: "cogs121-cb16b.firebaseapp.com",
+    databaseURL: "https://cogs121-cb16b.firebaseio.com",
+    projectId: "cogs121-cb16b",
+    storageBucket: "cogs121-cb16b.appspot.com",
+    messagingSenderId: "727112788947",
+    appId: "1:727112788947:web:06d5844aa7620e07"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script src="jquery-3.3.1.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="main_style.css">
+  <script src="nav_bar.js"></script>
+  <script src="session_active.js"></script>
+
+  </head>
+
+<!-- this is the side navigation bar-->
+  <body style="background-color:#fff;">
+  <div id="mySidenav" class="sidenav open">
+        <div style="display:block">
+          <h1><a href="landing.html">CourseAid</a></h1>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="margin:0px;padding:0px">&times;</a>
+        </div>
+        <a href="class_material.html">Class Material</a>
+        <a href="session_active.html">Active Session</a>
+        <a href="edit.html">Edit Sessions</a>
+        <a href="class_evaluation.html">Class Statistics</a>
+
+        <br>
+        <br>
+        <a href="search_results.html" >Find Classes</a>
+        <a href="my_classes.html">My Classes</a>
+      </div>
+
+
+ 
+
+  <div id="main" >
+
+          <div class="top_links" style="margin-left:20px">
+        <p> <a href="class_page.html"> Class Page </a> > <span class="crumbs">Active Session</span></p>
+        <ul>
+        <ul>
+             <!-- Use any element to open the sidenav -->
+       <button id ="nav_btn" type="button" class="btn btn-default btn-sm nav_button" onclick="openNav()" style="float:left">
+            <span class="material-icons">&#xe8ee;</span>
+       </button>
+
+        </ul>
+    </div>
+
+
+<!-- this card showing the question and answers -->
+<div class="container" style="margin-left:20px">
+  <h1 class="main_header">Active Session</h1>
+<input id="Question_number" placeholder="Ex.Question_1" type="text" size="20" style="margin-top:20px" />
+        <button id="readButton" >Get the question</button>
+  <div class="row">
+    <div class="col">
+      <div class="card content_card card w-100" style="margin-top:50px">
+        <H1 style = "margin-left: 20px">COGS121</H1>
+  <img class="card-img-top" src=""  id = 'file'>
+  <div class="card-body">
+    <h5 class="card-title" id = 'question'>Question </h5>
+    <p class="card-text" id = 'content'>What is the anwser of this question?</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item" id = 'A'>A.</li>
+    <li class="list-group-item" id = 'B'>B.</li>
+    <li class="list-group-item"id = 'C'>C.</li>
+    <li class="list-group-item" id = 'D'>D.</li>
+    <li class="list-group-item"id = 'E'>E.</li>
+  </ul>
+  <div class="card content_card card-body">
+
+  </div>
+</div>
+
+
+
+<!-- this part is displaying the question participation statistics-->
+
+    </div>
+    <div class="col">
+      <div class="card content_card card w-100" style="margin-top:50px">
+  <figure class="figure">
+  <img src="statistics.png" class="figure-img img-fluid rounded" alt="A figure visualize class performance statistics.">
+  <figcaption class="figure-caption" style="margin-left:20px">Accuracy of class.</figcaption>
+</figure>
+
+  <div class="card-body">
+    <h5 class="card-title">Statisics</h5>
+    <p class="card-text">There are 44% people got the right anwser</p>
+
+
+    <a href="details.html" class="btn btn-primary button_style">Details</a>
+  </div>
+</div>
+
+    
+    </div>
+    
+  </div>
+
+
+
+</body>
+</html>

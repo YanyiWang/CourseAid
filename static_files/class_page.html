@@ -1,0 +1,106 @@
+<!--
+    This page is used as a starting point for the user when they first select a class. They can either choose
+    to Edit session, Activate a Session, view class stats, or view the class material.
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Landing Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="main_style.css">
+  <script src="nav_bar.js"></script>
+    
+
+</head>
+
+
+<body>
+      
+    <div id="mySidenav" class="sidenav open">
+        <div style="display:block">
+            <h1><a href="landing.html">CourseAid</a></h1>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="margin:0px;padding:0px">&times;</a>
+        </div>
+        <a href="class_material.html">Class Material</a>
+        <a href="session_active.html">Active Session</a>
+        <a href="edit.html">Edit Sessions</a>
+        <a href="class_evaluation.html">Class Statistics</a>
+        <br>
+       
+        
+        <!--<div style="bottom: 0;position: absolute;bottom: 0;padding-bottom: 50px;"> -->
+        <a href="search_results.html">Find Classes</a>
+        <a href="my_classes.html">My Classes</a>
+        <!--</div>-->
+      </div>
+      
+<div id="main">
+
+    <div class="top_links">
+        <ul>
+             <!-- Use any element to open the sidenav -->
+       <button id ="nav_btn" type="button" class="btn btn-default btn-sm nav_button" onclick="openNav()" style="float:left">
+            <span class="material-icons">&#xe8ee;</span>
+       </button>
+            <h2>COGS 121 SP19 (UCSD)</h2>
+        </ul>
+    </div>
+
+
+<div class="container" style="margin-top:100px">
+
+<div class="row">
+    <div class="col col-md-6">
+        <div class="card" style="width:400px">
+            <div class="card-body content_card">
+                <h4 class="card-title">Start Session</h4>
+                <p class="card-text"> In class questions for students to participate in</p>
+                <a href="session_active.html" class="btn btn-primary">Begin</a>
+            </div>
+        </div>
+   </div>
+   <div class="col col-md-6">
+        <div class="card" style="width:400px">
+            <div class="card-body content_card">
+                <h4 class="card-title">Edit Session</h4>
+                <p class="card-text"> Create, Delete, or edit sessions</p>
+                <a href="edit.html" class="btn btn-primary">Edit</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+        <div class="col col-md-6">
+            <div class="card" style="width:400px">
+                <div class="card-body content_card">
+                    <h4 class="card-title">Class Material</h4>
+                    <p class="card-text"> Create, Add, or Delete Class Materials</p>
+                    <a href="class_material.html" class="btn btn-primary">View</a>
+                </div>
+            </div>
+       </div>
+       <div class="col col-md-6">
+            <div class="card" style="width:400px">
+                <div class="card-body content_card">
+                    <h4 class="card-title">Class Stats</h4>
+                    <p class="card-text"> Check out current statistics for the class</p>
+                    <a href="class_evaluation.html" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!--
+  This page is used for teacher/student interaction and also uses firebase to store and retrieve incoming comments. It has three
+  main functions to it: The toggable student questions(uses a timeout feature to refresh), the response section for the professor, 
+  and the course material itself which can either be slides or a single page.
+--> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Landing Page</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<style>
+.detailBox {
+    width:320px;
+    border:1px solid #bbb;
+    margin:50px;
+}
+.titleBox {
+    background-color:#fdfdfd;
+    padding:10px;
+}
+.titleBox label{
+  color:#444;
+  margin:0;
+  display:inline-block;
+}
+
+.commentBox label{
+  color:#444;
+  margin:0;
+  display:inline-block;
+}
+
+.commentBox {
+    padding:10px;
+    border-top:1px dotted #bbb;
+}
+.commentBox .form-group:first-child, .actionBox .form-group:first-child {
+    width:80%;
+}
+.commentBox .form-group:nth-child(2), .actionBox .form-group:nth-child(2) {
+    width:18%;
+}
+.actionBox .form-group * {
+    width:100%;
+}
+.taskDescription {
+    margin-top:10px 0;
+}
+.commentList {
+    padding:0;
+    list-style:none;
+    max-height:200px;
+    overflow:auto;
+}
+.commentList li {
+    margin:0;
+    margin-top:10px;
+}
+.commentList li > div {
+    display:table-cell;
+}
+.commenterImage {
+    width:30px;
+    margin-right:5px;
+    height:100%;
+    float:left;
+}
+.commenterImage img {
+    width:100%;
+    border-radius:50%;
+}
+.commentText p {
+    margin:0;
+}
+.sub-text {
+    color:#aaa;
+    font-family:verdana;
+    font-size:11px;
+}
+.actionBox {
+    border-top:1px dotted #bbb;
+    padding:10px;
+}
+
+.comment-wrapper .panel-body {
+    max-height:650px;
+    overflow:auto;
+}
+
+.comment-wrapper .media-list .media img {
+    width:64px;
+    height:64px;
+    border:2px solid #e5e7e8;
+}
+
+.comment-wrapper .media-list .media {
+    border-bottom:1px dashed #efefef;
+    margin-bottom:25px;
+}
+</style> 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>    
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="main_style.css">
+<script src="nav_bar.js"></script>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyC0afXrWzKDmxKFgnp4ltUxc7bG5p3gt8M",
+    authDomain: "cogs121-cb16b.firebaseapp.com",
+    databaseURL: "https://cogs121-cb16b.firebaseio.com",
+    projectId: "cogs121-cb16b",
+    storageBucket: "cogs121-cb16b.appspot.com",
+    messagingSenderId: "727112788947",
+    appId: "1:727112788947:web:06d5844aa7620e07"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+
+$(document).ready(() => {
+  const database = firebase.database();
+  
+    let ref = firebase.database().ref("side_comments/");
+
+    ref.orderByChild('Type').equalTo('Student').on("value", function(snapshot) {
+        snapshot.forEach(function(data){
+        if(data.val().Status == "Unsolved"){
+          $('#Questions').append("<li> <div class='commenterImage'><img src="+ data.val().Profile + "> </div> <div class='commentText'><p class ='unsolvedQuestion'>"+ 
+                          data.val().Question +
+                          "</p> <span class='date sub-text'>on May 5th, 2019</span> <button type='button' onclick='myFunction()'  id='solved' class='btn btn-info btn-xs'  > solved </button></div> </li>")
+        
+        }
+       else{
+          $('#SolvedQuestion').append("<li> <div class='commenterImage'><img src="+ data.val().Profile + "> </div> <div class='commentText'><p class='solvedQuestion'>"+ 
+                           data.val().Question +
+                          "</p> <span class='date sub-text'>on May 5th, 2019</span> <button type='button' onclick='myFunctionT()' class='btn btn-info btn-xs' > unsolved </button></div> </li>")
+          }
+       })      
+    });
+
+    ref.orderByChild('Type').equalTo('Instructor').on("value", function(snapshot) {
+        snapshot.forEach(function(data){
+        $('#TAcomments').append( "<li class='media'> <a href='#' class='pull-left'> <img src='https://bootdey.com/img/Content/user_1.jpg'  class='img-circle'>  </a>" + 
+                                  " <div class='media-body'> <span class='text-muted pull-right'> <small class='text-muted'>30 min ago</small> </span>" +
+                                  "<strong class='text-success'>Professor</strong>" + " <p> " + data.val().Comment + "</p></div> </li>")
+    
+        })
+      });    
+
+    $("#post").click( () =>{ 
+      let toAdd = $("#TAcomment").val();
+      var toAddRef = ref.push();
+      toAddRef.set({
+       Name: "Professor Guo",
+       Type: "Instructor",
+       Profile: "http://www.pgbovine.net/philip-guo-July-2014-pic-FULL.jpg",
+       Comment: toAdd,
+      });
+      window.location.reload()
+    }) 
+
+});
+
+var database = firebase.database();
+let ref = firebase.database().ref("side_comments/");
+
+function myFunction() {
+      Question = $(event.target ).closest('.commentText').find('.unsolvedQuestion').text()
+      console.log(Question)
+
+      ref.orderByChild('Question').equalTo(Question).once('value').then(function(snapshot) {
+        snapshot.forEach(function(data){
+          console.log(data.key)
+          database.ref("side_comments/"+ data.key).update({ Status: "solved"  });
+        })
+      })
+      
+   setTimeout(function(){
+   window.location.reload(1);
+}, 5000);
+}
+
+
+function myFunctionT() {
+      Question = $(event.target ).closest('.commentText').find('.solvedQuestion').text()
+      console.log(Question)
+
+      ref.orderByChild('Question').equalTo(Question).once('value').then(function(snapshot) {
+        snapshot.forEach(function(data){
+          console.log(data.key)
+          database.ref("side_comments/"+ data.key).update({ Status: "Unsolved"  });
+        })
+      })
+   setTimeout(function(){
+   window.location.reload(1);
+}, 2000);
+}
+
+
+
+</script>
+</head>
+
+<body>
+    <div id="mySidenav" class="sidenav open">
+        <div style="display:block">
+          <h1><a href="landing.html">CourseAid</a></h1>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="margin:0px;padding:0px">&times;</a>
+        </div>
+        <a href="class_material.html">Class Material</a>
+        <a href="session_active.html">Active Session</a>
+        <a href="edit.html">Edit Sessions</a>
+        <a href="class_evaluation.html">Class Statistics</a>
+        <br>
+       
+        
+        <!--<div style="bottom: 0;position: absolute;bottom: 0;padding-bottom: 50px;"> -->
+        <a href="search_results.html">Find Classes</a>
+        <a href="my_classes.html">My Classes</a>
+        <!--</div>-->
+      </div>
+      
+<div id="main">
+
+    <div class="top_links">
+        <p> <a href="class_page.html"> Class Page </a> > <a href="class_material.html"> Class Material Page </a>  ><span class="crumbs">Class Material Open</span></p>
+        <ul>
+             <!-- Use any element to open the sidenav -->
+       <button id ="nav_btn" type="button" class="btn btn-default btn-sm nav_button" onclick="openNav()" style="float:left">
+            <span class="material-icons">&#xe8ee;</span>
+       </button>
+            <h2>COGS 121 SP19 (UCSD)</h2>
+        </ul>
+    </div>
+
+<div class="row">
+    <div class="col col-md-8">
+        <h2 class="main_header"> Lecture 1 </h2>
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="slide1.png" alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="slide2.png" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="slide3.png" alt="Third slide">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only" color = 'red' >Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only"> Next </span>
+            </a>
+          </div>
+
+
+          <div class="row bootstrap snippets">
+                <div class="comment-wrapper">
+                    <div class="panel panel-info">
+                        <br>
+                        <div class="panel-heading">
+                            Comment panel
+                        </div>
+                        <div class="panel-body">
+                            <input class="form-control" id = "TAcomment" placeholder = "write a comment..." rows="3" />
+                            <br>
+                            <button id = 'post' type="button" class="btn btn-info pull-right"> Post </button>
+                            <div class="clearfix"></div>
+                            <hr>
+                      
+                            <ul class="media-list">
+                              <div id = "TAcomments"> 
+                                </div>
+                                <li class="media">
+                                    <a href="#" class="pull-left">
+                                        <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+                                    </a>
+                                    <div class="media-body">
+                                        <span class="text-muted pull-right">
+                                            <small class="text-muted">30 min ago</small>
+                                        </span>
+                                        <strong class="text-success">Professor</strong>
+                                        <p>
+                                          balabala testing
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="media">
+                                    <a href="#" class="pull-left">
+                                        <img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle">
+                                    </a>
+                                    <div class="media-body">
+                                        <span class="text-muted pull-right">
+                                            <small class="text-muted">1 h ago</small>
+                                        </span>
+                                        <strong class="text-success">TA_2</strong>
+                                        <p>
+                                            balabal testing 2
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="media">
+                                    <a href="#" class="pull-left">
+                                        <img src="https://bootdey.com/img/Content/user_3.jpg" alt="" class="img-circle">
+                                    </a>
+                                    <div class="media-body">
+                                        <span class="text-muted pull-right">
+                                            <small class="text-muted">30 min ago</small>
+                                        </span>
+                                        <strong class="text-success">TA_1</strong>
+                                        <p>
+                                          DescriptionJavaScript, often abbreviated as JS, is a high-level, interpreted programming language that conforms to the ECMAScript specification. JavaScript has curly-bracket syntax, dynamic typing, 
+                                          prototype-based object-orientation, and first-class functions
+                                        </p>
+                                    </div>  
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        </div>    
+    </div>
+
+
+    
+
+    <div class="col col-md-4">
+      <div class="detailBox">
+        <div class="titleBox">
+          <label>Unsolved Questions</label>
+        </div>
+
+        <div class="actionBox">
+            <ul class="commentList">
+                <div id = "Questions" ></div>
+                <li>
+                    <div class="commenterImage">
+                      <img src="http://placekitten.com/50/50" />
+                    </div>
+                    <div class="commentText">
+                        <p class="unsolvedQuestion">Hello this is a test comment.</p> <span class="date sub-text">on March 5th, 2014</span>
+                        <button onclick="myFunction()" type="button"  class='btn btn-info btn-xs'>solved </button>
+                    </div>
+                </li>
+                <li>
+                    <div class="commenterImage">
+                      <img src="http://placekitten.com/45/45" />
+                    </div>
+                    <div class="commentText">
+                        <p class = "unsolvedQuestion" >Hello this is a test comment and this comment is particularly very long and it goes on and on and on.</p> <span class="date sub-text">on March 5th, 2014</span>
+                        <button onclick="myFunction()" type="button"  class='btn btn-info btn-xs'> solved </button>
+                      </div>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+
+
+      <div class="detailBox">
+        <div class="titleBox">
+          <label>Solved Questions</label>
+        </div>
+        <div class="actionBox">
+            <ul class="commentList">
+                <div id = "SolvedQuestion" ></div>
+                <li>
+                    <div class="commenterImage">
+                      <img src="http://placekitten.com/50/50" />
+                    </div>
+                    <div class="commentText">
+                        <p class="solvedQuestion">Hello this is a test comment.</p> <span class="date sub-text">on March 5th, 2014</span>
+                        <button type="button"  onclick="myFunctionT()" class="btn btn-info btn-xs">unsolved <span class="glyphicon glyphicon-remove"></span>
+                    </div>
+                </li>
+                <li>
+                    <div class="commenterImage">
+                      <img src="http://placekitten.com/45/45" />
+                    </div>
+                    <div class="commentText">
+                        <p class="solvedQuestion"> Hello this is a test comment and this comment is particularly very long and it goes on and on and on.</p> <span class="date sub-text">on March 5th, 2014</span>
+                        <button type="button" onclick="myFunctionT()"  class="btn btn-info btn-xs">unsolved <span class="glyphicon glyphicon-remove"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+</div>
+</div>>
+
+</div>
+
+</body>
+</html>

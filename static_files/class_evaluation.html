@@ -1,0 +1,199 @@
+<!--
+  This page shows off the statistics gathered from both user data and previous cape data. All of the data shown here is 
+  stored and retrieved from the firebase. We also used a third party embeded wordcloud created by infogram to show off
+  evaluation data that is connected to a google sheet form and is populated by an evaluation form. This page also gives
+  the ability for the user to edit student data.
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>class_evaluation Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+ 
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyC0afXrWzKDmxKFgnp4ltUxc7bG5p3gt8M",
+    authDomain: "cogs121-cb16b.firebaseapp.com",
+    databaseURL: "https://cogs121-cb16b.firebaseio.com",
+    projectId: "cogs121-cb16b",
+    storageBucket: "cogs121-cb16b.appspot.com",
+    messagingSenderId: "727112788947",
+    appId: "1:727112788947:web:06d5844aa7620e07"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="jquery-3.3.1.min.js"></script>
+  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="main_style.css">
+  <script src="nav_bar.js"></script>  
+  
+  <script src="class_eval.js"></script>
+</head>
+
+<body>  
+    <div id="mySidenav" class="sidenav open">
+        <div style="display:block">
+          <h1><a href="landing.html">CourseAid</a></h1>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="margin:0px;padding:0px">&times;</a>
+        </div>
+        <a href="class_material.html">Class Material</a>
+        <a href="session_active.html">Active Session</a>
+        <a href="edit.html">Edit Sessions</a>
+        <a href="class_evaluation.html">Class Statistics</a>
+        <br>
+       
+        
+        <!--<div style="bottom: 0;position: absolute;bottom: 0;padding-bottom: 50px;"> -->
+        <a href="search_results.html">Find Classes</a>
+        <a href="my_classes.html">My Classes</a>
+        <!--</div>-->
+      </div>
+      
+<div id="main">
+
+    <div class="top_links">
+        <p> <a href="class_page.html"> Class Page </a> > <span class="crumbs">Class Statistics</span></p>
+        <ul>
+             <!-- Use any element to open the sidenav -->
+       <button id ="nav_btn" type="button" class="btn btn-default btn-sm nav_button" onclick="openNav()" style="float:left">
+            <span class="material-icons">&#xe8ee;</span>
+       </button>
+            <h2>COGS 121 SP19 (UCSD)</h2>
+        </ul>
+    </div>
+
+    <h1 class="main_header">Class Statistics</h1>
+
+    <ul class="nav nav-pills" style="margin-bottom:10px">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="pill" href="#class_stats">Class Info</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#student">Student Info</a>
+      </li>
+    </ul>
+
+
+    <div class="tab-content">
+
+
+      <div id="class_stats" class="tab-pane active">
+        <div class="container-fluid">
+          <div class="card-columns">
+            <div class="card content_card ">
+              <div class="card-body text-center ">
+                <h3>Your Average Class Statistics</h3>
+                <h5 style="color:blue">Current Class: COGS 121</h5>
+                <h5 style="color:green">Average Hours Spent: 10.5 Hrs</h5>
+                <h5 style="color:orange"><span id="class_gpa"></span></h5>
+              </div>
+            </div>
+
+        <div class="card content_card">
+          <div class="card-body text-center container-fluid ">
+            <h3>Number of Comments found in In class session and lecture matieral</h3>
+            <div class="container-fluid" style="text-align:center" id="chart_wrap">
+              <div id="chart_div" style="overflow: auto"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card content_card ">
+          <div class="card-body text-center ">
+            <h3>Common Phrases Used to Describe Your Class</h3>
+            <div class="infogram-embed" data-id="5fdb3e20-739a-42ea-9e12-a1ad28ef344d" data-type="interactive" data-title="Data From Class Eval."></div><script>!function(e,t,s,i){var n="InfogramEmbeds",o=e.getElementsByTagName("script")[0],d=/^http:/.test(e.location)?"http:":"https:";if(/^\/{2}/.test(i)&&(i=d+i),window[n]&&window[n].initialized)window[n].process&&window[n].process();else if(!e.getElementById(s)){var r=e.createElement("script");r.async=1,r.id=s,r.src=i,o.parentNode.insertBefore(r,o)}}(document,0,"infogram-async","https://e.infogram.com/js/dist/embed-loader-min.js");</script><div style="padding:8px 0;font-family:Arial!important;font-size:13px!important;line-height:15px!important;text-align:center;border-top:1px solid #dadada;margin:0 30px"><a href="https://infogram.com/5fdb3e20-739a-42ea-9e12-a1ad28ef344d" style="color:#989898!important;text-decoration:none!important;" target="_blank">Data From Class Eval.</a><br><a href="https://infogram.com" style="color:#989898!important;text-decoration:none!important;" target="_blank" rel="nofollow">Infogram</a></div>          </div>
+        </div>
+    
+
+
+        <div class="card content_card">
+          <div class="card-body text-center container-fluid ">
+            <h3>Current Grade Distribution</h3>
+            <div class="container-fluid" style="text-align:center">
+              <div id="bar_grades" style="overflow: auto"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    
+        <div class="card-columns">
+            <div class="card content_card">
+              <div class="card-body text-center container-fluid ">
+                <h3>Average Hours Spent Studying for this course (Based off CAPE data)</h3>
+                <div class="container-fluid" style="text-align:center">
+                  <div id="cape_gpa" style="overflow: auto"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card content_card">
+                <div class="card-body text-center container-fluid">
+                  <h3>Average Hours Spent Studying for this course (Based off CAPE data)</h3>
+                  <div class="container-fluid" style="text-align:center">
+                    <div id="cape_hours" style="overflow: auto"></div>
+                  </div>
+                </div>
+              </div>
+
+          <div class="card content_card">
+              <div class="card-body text-center">
+                <h3>Raw Cape Data</h3>
+                Course: <input placeholder="Ex.COGS121" id="course_box" type="text" size="20"/>
+                <button id="prof_data">Get Course Data</button>
+                
+                <div id="result"class="card-body"></div>
+              </div>
+            </div>
+
+      </div>
+
+    </div> 
+
+    </div>
+
+        <div id="student" class="tab-pane fade in">
+          <div>
+            <h5>Display</h5>
+            <input id="nameBox" type="text" size="20" placeholder="Enter Student Name"/>
+            <button id="readButton">Get a Student's Performance</button>
+            <button id="allUsersButton">Get all Student's Performance</button>
+          </div>
+          <br>
+          <div>
+            <h5>Edit Student Score</h5>
+            <input id="stu_name" type="text" size="20" placeholder="Enter Student Name"/>
+            <input id="stu_grade" type="text" size="20" placeholder="Enter Student Grade"/>
+            <input id="stu_atd" type="text" size="20" placeholder="Enter Student Attendance"/>
+            <button id="stu_edit">Change</button>
+            
+          </div>
+          <br>
+          <div id="gradeDiv"></div>
+          <div id="attendanceDiv"></div> 
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+</body>           

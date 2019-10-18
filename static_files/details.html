@@ -1,0 +1,140 @@
+
+<!--This file is providing more details of participation question page.
+ It also allow users to export the participation table to csv-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Landing Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="main_style.css">
+  <script src="nav_bar.js"></script>
+  <script src="details.js"></script>
+</head>
+
+<!-- add the navagation bar-->
+<body style="background-color:#fff;">
+  <div id="mySidenav" class="sidenav open">
+        <div style="display:block">
+          <h1><a href="landing.html">CourseAid</a></h1>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="margin:0px;padding:0px">&times;</a>
+        </div>
+        <a href="class_material.html">Class Material</a>
+        <a href="session_active.html">Active Session</a>
+        <a href="edit.html">Edit Sessions</a>
+        <a href="class_evaluation.html">Class Statistics</a>
+
+        <br>
+        <a href="search_results.html">Find Classes</a>
+        <a href="my_classes.html">My Classes</a>
+      </div>
+
+  <div id="main">
+
+      <div class="top_links">
+        <p> <a href="class_page.html"> Class Page  / </a> <a href="session_active.html"> Active Session </a> > <span class="crumbs">Details</span></p>
+        <ul>
+        <ul>
+             <!-- Use any element to open the sidenav -->
+       <button id ="nav_btn" type="button" class="btn btn-default btn-sm nav_button" onclick="openNav()" style="float:left">
+            <span class="material-icons">&#xe8ee;</span>
+       </button>
+
+        </ul>
+    </div>
+
+
+ <h1 class="main_header">Detail</h1>
+      
+<!--Create a fake in class participation table  -->
+<div class="container" style="margin:50px">
+<table class="table table-bordered" >
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">PID</th>
+      <th scope="col">Anwser</th>
+      <th scope="col">Accuracy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Vincent</td>
+      <td>Axxxxxxxxx</td>
+      <td>A</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Yuie</td>
+      <td>Axxxxxxxxx</td>
+      <td>A</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+       <td>Shera</td>
+      <td>Axxxxxxxxx</td>
+      <td>E</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<div class="row"  style="margin:10px">
+
+  <!-- create a button for exporting the csv file -->
+  <button onclick="exportTableToCSV(null,'test.csv')">Export as csv file </button>
+
+</div>
+
+ 
+
+ <!-- Create the fake comment from students regarding the in class questions -->
+<h2>In Class Questions</h2>
+
+<div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">Question 1</h5>
+      <small>5mins ago</small>
+    </div>
+    <p class="mb-1">What is difference between let and const?</p>
+  
+  </a>
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">Question 5</h5>
+      <small class="text-muted">10 mins ago</small>
+    </div>
+    <p class="mb-1">I don't understand the javascript object could you explain that again?</p>
+    <small class="text-muted">Yanyi Wang</small>
+  </a>
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">Question 4</h5>
+      <small class="text-muted">15 mins ago</small>
+    </div>
+    <p class="mb-1">Could you explain node.js part again?</p>
+    <small class="text-muted">Anonymous</small>
+  </a>
+</div>
+
+
+</div>
+</body>
+</html>
+
+
+
+

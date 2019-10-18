@@ -1,0 +1,231 @@
+
+<!-- This file is an edit page for users to edit their in class questions by adding 
+image, question, and answers.--> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>class_evaluation Page</title>
+
+ <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.0.1/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyC0afXrWzKDmxKFgnp4ltUxc7bG5p3gt8M",
+    authDomain: "cogs121-cb16b.firebaseapp.com",
+    databaseURL: "https://cogs121-cb16b.firebaseio.com",
+    projectId: "cogs121-cb16b",
+    storageBucket: "cogs121-cb16b.appspot.com",
+    messagingSenderId: "727112788947",
+    appId: "1:727112788947:web:06d5844aa7620e07"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script src="jquery-3.3.1.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="main_style.css">
+  <script src="nav_bar.js"></script>
+  <script src="edit.js"></script>
+
+
+  </head>
+
+<!-- creating side navagation bar-->
+ <body style="background-color:#fff;">
+  <div id="mySidenav" class="sidenav open">
+        <div style="display:block">
+          <h1><a href="landing.html">CourseAid</a></h1>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="margin:0px;padding:0px">&times;</a>
+        </div>
+        <a href="class_material.html">Class Material</a>
+        <a href="session_active.html">Active Session</a>
+        <a href="edit.html">Edit Sessions</a>
+        <a href="class_evaluation.html">Class Statistics</a>
+        <br>
+        <a href="search_results.html">Find Classes</a>
+        <a href="my_classes.html">My Classes</a>
+      </div>
+
+  <div id="main" style="margin:30px">
+
+    <div class="top_links">
+              <p> <a href="class_page.html"> Class Page </a> > <span class="crumbs">Edit</span></p>
+        <ul>
+             <!-- Use any element to open the sidenav -->
+       <button id ="nav_btn" type="button" class="btn btn-default btn-sm nav_button" onclick="openNav()" style="float:left">
+            <span class="material-icons">&#xe8ee;</span>
+       </button>
+       
+        </ul>
+    </div>
+
+ <h1 class="main_header" style="margin-left: 20px">Edit</h1>
+
+  <!-- allow users to upload a image -->
+  <div class="form w-50" style= "margin:20px">
+    <label for="exampleFormControlInput1" >Question number</label>
+    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Question_1">
+  </div>
+
+<style>
+    /* Image Designing Propoerties */
+    .thumb {
+        height: 75px;
+        border: 1px solid #000;
+        margin: 10px 5px 0 0;
+    }
+</style>
+
+
+  <!-- Have user input a paragraph of text -->
+<input type='file'  style  = 'margin-left: 20px' />
+</br><img id="myImg" src="" alt="your image"style  = 'margin: 20px'  height=250 width=400>
+
+ <div class="form-group w-50" style= "margin:20px">
+    <label for="exampleFormControlTextarea1">Write a question here</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
+  </div>
+
+  <div class="container" >
+
+
+  <!-- Create answers with ABCDE and space for entering a answer -->
+<div class="col">
+    <div class="form-group" style="width: 100px">
+    <label for="exampleFormControlSelect1">Add answer</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+      <option>D</option>
+      <option>E</option>
+    </select>
+  </div>
+
+  <div class="input-group mb-3 w-50">
+  <input type="text" id = 'answer'class="form-control" placeholder="Enter an anwser" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button">OK</button>
+  </div>
+</div>
+</div>
+
+<div class="col">
+
+    <div class="form-group" style="width: 100px">
+    <label for="exampleFormControlSelect1">Add answer</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+      <option>D</option>
+      <option>E</option>
+    </select>
+  </div>
+
+  
+<div class="input-group mb-3 w-50">
+  <input type="text" id = 'answer2'class="form-control" placeholder="Enter an anwser" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button">OK</button>
+  </div>
+</div>
+</div>
+
+<div class="col">
+
+    <div class="form-group" style="width: 100px">
+    <label for="exampleFormControlSelect1">Add answer</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+      <option>D</option>
+      <option>E</option>
+    </select>
+  </div>
+
+<div class="input-group mb-3 w-50">
+  <input type="text" id = 'answer3' class="form-control" placeholder="Enter an anwser" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button">OK</button>
+  </div>
+</div>
+  </div>
+
+<div class="col">
+
+    <div class="form-group" style="width: 100px">
+    <label for="exampleFormControlSelect1">Add answer</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+      <option>D</option>
+      <option>E</option>
+    </select>
+  </div>
+
+<div class="input-group mb-3 w-50">
+  <input type="text" id = 'answer4' class="form-control" placeholder="Enter an anwser" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button">OK</button>
+  </div>
+</div>
+  </div>
+
+  <div class="col">
+
+    <div class="form-group" style="width: 100px">
+    <label for="exampleFormControlSelect1">Add answer</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+      <option>D</option>
+      <option>E</option>
+    </select>
+  </div>
+
+  <div class="input-group mb-3 w-50">
+  <input type="text"id = 'answer5' class="form-control" placeholder="Enter an anwser" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button">OK</button>
+  </div>
+</div>
+
+  </div>
+
+
+
+  <!-- Create save button and delete all button-->
+<button id = 'saveButton'type="button" class="btn  button_style">Save the question</button>
+
+<button id="resetButton" class="btn button_style"  >Delete all questions</button>
+
+</div>
+
+<div id="status"></div>
+
+</div>
+</div>
+</body>
+</html>
+
+
+
